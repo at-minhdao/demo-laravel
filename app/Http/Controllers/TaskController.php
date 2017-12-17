@@ -34,6 +34,24 @@ class TaskController extends Controller
 
         return redirect('/tasks');
     }
+    public function edit($id)
+    {
+        return view('tasks.edit', [
+            'task' => Task::findOrFail($id),
+        ]);
+    }
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:255',
+        ]);
+
+        $task = Task::find($id);
+        $task->name = $request->name;
+        $task->save();
+
+        return redirect('/tasks')->with('msg', 'Edit Success');
+    }
     public function destroy(Request $request, Task $task)
     {
         $this->authorize('destroy', $task);

@@ -5,11 +5,14 @@
 <!-- Bootstrap Boilerplate... -->
 
 <div class="panel-body">
+	@if (Session::has('msg'))
+	<p class="alert alert-success">{{ Session::get('msg') }}</p>
+	@endif
 	<!-- Display Validation Errors -->
 	@include('common.errors')
 
 	<!-- New Task Form -->
-	<form action="{{ url('task') }}" method="POST" class="form-horizontal">
+	<form action="{{ url('tasks') }}" method="POST" class="form-horizontal">
 		{{ csrf_field() }}
 
 		<!-- Task Name -->
@@ -58,15 +61,19 @@
 						</td>
 						<!-- Delete Button -->
 						<td>
-							<div class="col-sm-offset-10 col-sm-1">
-								<form action="{{ url('task/'.$task->id) }}" method="POST">
-									{{ csrf_field() }} {{ method_field('DELETE') }}
+							<form action="{{ url('tasks/'.$task->id).'/edit' }}" method="GET">
 
-									<button type="submit" id="delete-task-{{ $task->id }}" class="btn btn-danger">
-										<i class="fa fa-btn fa-trash"></i>Delete
-									</button>
-								</form>
-							</div>
+								<button type="submit" id="edit-task-{{ $task->id }}" class="btn btn-success">
+									<i class="fa fa-btn fa-trash"></i>Edit
+								</button>
+							</form>
+							<form action="{{ url('tasks/'.$task->id) }}" method="POST">
+								{{ csrf_field() }} {{ method_field('DELETE') }}
+
+								<button type="submit" id="delete-task-{{ $task->id }}" class="btn btn-danger" onclick="return confirm('Do you want delete!')">
+									<i class="fa fa-btn fa-trash"></i>Delete
+								</button>
+							</form>
 						</td>
 					</tr>
 					@endforeach
