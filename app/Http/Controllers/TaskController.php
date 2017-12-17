@@ -32,7 +32,7 @@ class TaskController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect('/tasks');
+        return redirect('/tasks')->with('msg', 'Success!');
     }
     public function edit($id)
     {
@@ -52,12 +52,12 @@ class TaskController extends Controller
 
         return redirect('/tasks')->with('msg', 'Edit Success');
     }
-    public function destroy(Request $request, Task $task)
+    public function destroy(Request $request, Task $tasks)
     {
-        $this->authorize('destroy', $task);
+        $this->authorize('destroy', $tasks);
 
-        $task->delete();
+        $tasks->delete();
 
-        return redirect('/tasks');
+        return redirect('/tasks')->with('msg', 'Delete Success!');
     }
 }
