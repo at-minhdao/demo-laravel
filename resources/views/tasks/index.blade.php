@@ -61,16 +61,14 @@
 						</td>
 						<!-- Delete Button -->
 						<td>
-							<form action="{{ url('tasks/'.$task->id).'/edit' }}" method="GET">
-
-								<button type="submit" id="edit-task-{{ $task->id }}" class="btn btn-success">
+							<form action="{{ url('tasks/'.$task->id).'/edit' }}" method="GET" style="display: inline-block">
+								<button type="submit" class="btn btn-success">
 									<i class="fa fa-btn fa-trash"></i>Edit
 								</button>
 							</form>
-							<form action="{{ url('tasks/'.$task->id) }}" method="POST">
+							<form action="{{ url('tasks/'.$task->id) }}" method="POST" style="display: inline-block">
 								{{ csrf_field() }} {{ method_field('DELETE') }}
-
-								<button type="submit" id="delete-task-{{ $task->id }}" class="btn btn-danger" onclick="return confirm('Do you want delete!')">
+								<button type="submit" class="btn btn-danger" onclick="return confirm('Do you want delete!')">
 									<i class="fa fa-btn fa-trash"></i>Delete
 								</button>
 							</form>
