@@ -32,14 +32,32 @@ class TaskController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect('/tasks');
+        return redirect('/tasks')->with('msg', 'Success!');
     }
-    public function destroy(Request $request, Task $task)
+    public function edit($id)
     {
-        $this->authorize('destroy', $task);
+        return view('tasks.edit', [
+            'task' => Task::findOrFail($id),
+        ]);
+    }
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:255',
+        ]);
 
-        $task->delete();
+        $task = Task::find($id);
+        $task->name = $request->name;
+        $task->save();
 
-        return redirect('/tasks');
+        return redirect('/tasks')->with('msg', 'Edit Success');
+    }
+    public function destroy(Request $request, Task $tasks)
+    {
+        $this->authorize('destroy', $tasks);
+
+        $tasks->delete();
+
+        return redirect('/tasks')->with('msg', 'Delete Success!');
     }
 }

@@ -19,8 +19,16 @@ Route::get('/tasks', [
     'uses' => 'TaskController@index',
     'as'   => 'tasks.index'
 ]);
-Route::post('/task', 'TaskController@store');
-Route::delete('/task/{task}', 'TaskController@destroy');
+Route::post('/tasks', 'TaskController@store');
+Route::delete('/tasks/{tasks}', 'TaskController@destroy');
+Route::get('/tasks/{tasks}/edit', [
+    'uses' => 'TaskController@edit',
+    'as'   => 'tasks.edit'
+]);
+Route::put('/tasks/{tasks}', [
+    'uses' => 'TaskController@update',
+    'as'   => 'tasks.update'
+]);
 
 Auth::routes();
 
