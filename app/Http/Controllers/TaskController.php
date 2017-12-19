@@ -52,11 +52,11 @@ class TaskController extends Controller
 
         return redirect('/tasks')->with('msg', 'Edit Success');
     }
-    public function destroy(Request $request, Task $tasks)
+    public function destroy(Request $request, Task $task)
     {
-        $this->authorize('destroy', $tasks);
+        $this->authorize('destroy', $task);
 
-        $tasks->delete();
+        $task->delete();
 
         return redirect('/tasks')->with('msg', 'Delete Success!');
     }
