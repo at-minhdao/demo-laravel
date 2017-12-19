@@ -30,6 +30,20 @@ Route::put('/tasks/{tasks}', [
     'as'   => 'tasks.update'
 ]);
 
+// users
+Route::group(['namespace' => 'Auth'], function() {
+    Route::group(['prefix' => 'users'], function() {
+        Route::get('{user}/edit', [
+            'uses' => 'UserController@edit',
+            'as'   => 'users.edit'
+        ]);        
+        Route::put('{user}', [
+            'uses' => 'UserController@update',
+            'as'   => 'users.update',
+        ]); 
+    });
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
