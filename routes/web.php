@@ -31,10 +31,18 @@ Route::put('/tasks/{tasks}', [
 ]);
 
 // users
-Route::get('/users/{user}/edit', [
-    'uses' => 'UserController@edit',
-    'as'   => 'users.edit'
-]);
+Route::group(['namespace' => 'Auth'], function() {
+    Route::group(['prefix' => 'users'], function() {
+        Route::get('{user}/edit', [
+            'uses' => 'UserController@edit',
+            'as'   => 'users.edit'
+        ]);        
+        Route::put('{user}', [
+            'uses' => 'UserController@update',
+            'as'   => 'users.update',
+        ]); 
+    });
+});
 
 Auth::routes();
 
