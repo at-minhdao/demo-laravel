@@ -15,20 +15,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/tasks', [
-    'uses' => 'TaskController@index',
-    'as'   => 'tasks.index'
-]);
-Route::post('/tasks', 'TaskController@store');
-Route::delete('/tasks/{tasks}', 'TaskController@destroy');
-Route::get('/tasks/{tasks}/edit', [
-    'uses' => 'TaskController@edit',
-    'as'   => 'tasks.edit'
-]);
-Route::put('/tasks/{tasks}', [
-    'uses' => 'TaskController@update',
-    'as'   => 'tasks.update'
-]);
+
+Route::group(['prefix' => 'tasks'], function() {
+    Route::get('', [
+        'uses' => 'TaskController@index',
+        'as'   => 'tasks.index'
+    ]);
+    Route::post('', [
+        'uses' => 'TaskController@store',
+        'as'   => 'tasks.store',
+    ]);
+    Route::delete('{task}', [
+        'uses' => 'TaskController@destroy',
+        'as'   => 'tasks.destroy',
+    ]);
+    Route::get('{task}/edit', [
+        'uses' => 'TaskController@edit',
+        'as'   => 'tasks.edit'
+    ]);
+    Route::put('{task}', [
+        'uses' => 'TaskController@update',
+        'as'   => 'tasks.update'
+    ]);
+});
 
 // users
 Route::group(['namespace' => 'Auth'], function() {
