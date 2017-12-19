@@ -30,6 +30,12 @@ Route::put('/tasks/{tasks}', [
     'as'   => 'tasks.update'
 ]);
 
+// users
+Route::get('/users/{user}/edit', [
+    'uses' => 'UserController@edit',
+    'as'   => 'users.edit'
+]);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
