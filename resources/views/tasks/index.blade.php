@@ -5,12 +5,20 @@
 <!-- Bootstrap Boilerplate... -->
 
 <div class="panel-body">
+
 	@if (Session::has('msg'))
-	<p class="alert alert-success">{{ Session::get('msg') }}</p>
+	<div class="row">
+		<div class="col-sm-offset-3 col-sm-6">
+				<p class="alert alert-success">{{ Session::get('msg') }}</p>
+		</div>
+	</div>
 	@endif
 	<!-- Display Validation Errors -->
-	@include('common.errors')
-
+	<div class="row">
+		<div class="col-sm-offset-3 col-sm-6">
+			@include('common.errors')
+		</div>
+	</div>
 	<!-- New Task Form -->
 	<form action="{{ url('tasks') }}" method="POST" class="form-horizontal">
 		{{ csrf_field() }}
@@ -61,12 +69,12 @@
 						</td>
 						<!-- Delete Button -->
 						<td>
-							<form action="{{ url('tasks/'.$task->id).'/edit' }}" method="GET" style="display: inline-block">
+							<form action="{{ route('tasks.edit', [$task->id]) }}" method="GET" style="display: inline-block">
 								<button type="submit" class="btn btn-success">
 									<i class="fa fa-btn fa-trash"></i>Edit
 								</button>
 							</form>
-							<form action="{{ url('tasks/'.$task->id) }}" method="POST" style="display: inline-block">
+							<form action="{{ route('tasks.destroy', [$task->id]) }}" method="POST" style="display: inline-block">
 								{{ csrf_field() }} {{ method_field('DELETE') }}
 								<button type="submit" class="btn btn-danger" onclick="return confirm('Do you want delete!')">
 									<i class="fa fa-btn fa-trash"></i>Delete

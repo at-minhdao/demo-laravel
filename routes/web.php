@@ -51,6 +51,22 @@ Route::group(['namespace' => 'Auth'], function() {
             'as'   => 'users.update',
         ]); 
     });
+    
+    Route::group(['prefix' => 'admin'], function() {
+        Route::get('', [
+            'uses' => 'AdminController@index',
+            'as'   => 'admin.index',
+        ]);
+        Route::get('login', [
+            'uses' => 'AdminLoginController@index',
+            'as'   => 'admin.login',
+        ]);
+        Route::post('login', [
+            'uses' => 'AdminLoginController@login',
+            'as'   => 'admin.login',
+        ]);
+    });
+    
 });
 
 Auth::routes();
